@@ -1,0 +1,9 @@
+class Main {
+    function void main() {
+        var DuckHuntGame game;
+        let game = DuckHuntGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}

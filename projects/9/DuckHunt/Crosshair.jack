@@ -1,0 +1,41 @@
+class Crosshair {
+    field int x, y;
+
+    constructor Crosshair new(int Ax, int Ay) {
+        let x = Ax;
+        let y = Ay;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getX() { return x; }
+    method int getY() { return y; }
+
+    method void move(int dx, int dy) {
+        let x = x + dx;
+        let y = y + dy;
+        if (x < 10) { let x = 10; }
+        if (x > 500) { let x = 500; }
+        if (y < 20) { let y = 20; }
+        if (y > 240) { let y = 240; }
+        return;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawLine(x - 10, y, x + 10, y);
+        do Screen.drawLine(x, y - 10, x, y + 10);
+        return;
+    }
+
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawLine(x - 10, y, x + 10, y);
+        do Screen.drawLine(x, y - 10, x, y + 10);
+        return;
+    }
+}

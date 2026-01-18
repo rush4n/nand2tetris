@@ -1,0 +1,77 @@
+class Bird {
+    field int x, y;
+    field int dir;
+    field int speed;
+    field int frame;
+    field boolean wingUp;
+
+    constructor Bird new() {
+        do reset();
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void reset() {
+        let frame = 0;
+        let wingUp = true;
+        let speed = 4;
+        let y = 30 + (Math.abs(Math.multiply(speed, 17)) / 4);
+        if (y > 180) { let y = 100; }
+        
+        if (dir = 1) {
+            let x = 0;
+            let dir = 1;
+        } else {
+            let x = 480;
+            let dir = -1;
+        }
+        return;
+    }
+
+    method void update() {
+        let x = x + (dir * speed);
+        let frame = frame + 1;
+        if (frame > 5) {
+            let wingUp = ~wingUp;
+            let frame = 0;
+        }
+        return;
+    }
+
+    method boolean isOut() {
+        if (dir = 1) {
+            if (x > 500) { return true; }
+        } else {
+            if (x < 0) { return true; }
+        }
+        return false;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + 20, y + 10);
+        if (wingUp) {
+            do Screen.drawRectangle(x + 5, y - 8, x + 15, y);
+        } else {
+            do Screen.drawRectangle(x + 5, y + 10, x + 15, y + 18);
+        }
+        return;
+    }
+
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y - 8, x + 20, y + 18);
+        return;
+    }
+
+    method boolean checkHit(int cx, int cy) {
+        if ((cx > (x - 5)) & (cx < (x + 25)) & (cy > (y - 5)) & (cy < (y + 15))) {
+            return true;
+        }
+        return false;
+    }
+}
